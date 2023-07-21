@@ -1,0 +1,40 @@
+.movie-item {
+  margin: auto;
+  width: 1000px;
+  max-width: 1000px;
+}
+
+.video-container {
+  justify-content: center;
+}
+
+.movie {
+  border: none;
+}
+
+.info {
+  flex-direction: column;
+
+  .title {
+    font-size: 18px;
+    color: red;
+  }
+
+  .action {
+    margin: 0 10px 10px 0;
+  }
+
+  .action-button {
+    margin-right: 10px;
+
+    &.up-voted {
+      border-color: #40a9ff;
+      color: #40a9ff;
+    }
+
+    &.down-voted {
+      color: #ff4d4f;
+      border-color: #ff4d4f;
+    }
+  }
+}
