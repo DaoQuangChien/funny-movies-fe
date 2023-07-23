@@ -1,8 +1,9 @@
-import React, { FC } from "react";
-import { Button, Card, Col, Row } from "antd";
+import { FC } from "react";
+import { Button, Card, Col, Row, Typography } from "antd";
 import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
-import "./styles.scss";
 import { iMovieItem } from "../../types";
+import Parser from "html-react-parser";
+import "./styles.scss";
 
 interface Props extends iMovieItem {
   onUpVoteMovie: (id: string) => () => void;
@@ -78,11 +79,17 @@ const MovieItem: FC<Props> = ({
               </div>
             </div>
             <p className="text bold">Description:</p>
-            <p
+            <Typography.Paragraph
+              ellipsis={{
+                rows: 3,
+                expandable: true,
+                symbol: "more",
+              }}
               className="data"
-              dangerouslySetInnerHTML={{ __html: description }}
               data-testid="movie-description"
-            />
+            >
+              {Parser(description)}
+            </Typography.Paragraph>
           </div>
         </Col>
       </Row>
