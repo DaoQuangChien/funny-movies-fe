@@ -2,15 +2,14 @@ import { FC, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Divider, Form, Input, Row, Typography } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
-import { getUserData, useAuthenActions } from "../../store";
+import { useAuthenActions } from "../../store";
 import "./styles.scss";
 
 const { Title } = Typography;
 const HeaderBar: FC = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const { isSignIn, signIn, signOut } = useAuthenActions();
-  const userData = getUserData();
+  const { userData, isSignIn, signIn, signOut } = useAuthenActions();
   const [submitting, setSubmitting] = useState(false);
   const [action, setAction] = useState("");
   const handleFinish = (values: { email: string; password: string }) => {
@@ -37,18 +36,22 @@ const HeaderBar: FC = () => {
   const SignedInLayout = (
     <Row gutter={[8, 8]} align="middle">
       <Col>
-        <p className="welcome-text test-class">
+        <p className="welcome-text test-class" data-testid="welcome-text">
           <span className="bold">Welcome </span>
           {userData?.email}
         </p>
       </Col>
       <Col>
         <div className="buttons-group flex-layout">
-          <Button type="primary" onClick={onNavigateToPostVideo}>
+          <Button
+            type="primary"
+            onClick={onNavigateToPostVideo}
+            data-testid="share-movie-btn"
+          >
             Share a movie
           </Button>
           <Divider type="vertical" className="button-divider" />
-          <Button onClick={onSignOut} type="primary">
+          <Button onClick={onSignOut} type="primary" data-testid="logout-btn">
             Logout
           </Button>
         </div>
@@ -77,7 +80,11 @@ const HeaderBar: FC = () => {
             ]}
             noStyle
           >
-            <Input className="header-input" placeholder="email" />
+            <Input
+              className="header-input"
+              placeholder="email"
+              data-testid="email-input"
+            />
           </Form.Item>
         </Col>
         <Col>
@@ -97,6 +104,7 @@ const HeaderBar: FC = () => {
               className="header-input"
               placeholder="password"
               type="password"
+              data-testid="password-input"
             />
           </Form.Item>
         </Col>
@@ -107,6 +115,7 @@ const HeaderBar: FC = () => {
               type="primary"
               disabled={submitting}
               onClick={handleSubmitBtnClick("signin")}
+              data-testid="login-btn"
             >
               Login
             </Button>
@@ -115,6 +124,7 @@ const HeaderBar: FC = () => {
               type="primary"
               disabled={submitting}
               onClick={handleSubmitBtnClick("signup")}
+              data-testid="register-btn"
             >
               Register
             </Button>

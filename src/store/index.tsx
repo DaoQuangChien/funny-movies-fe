@@ -21,7 +21,7 @@ export const getUserData = () =>
     ? JSON.parse(localStorage.getItem("user")!)
     : null;
 
-const INIT_STATE: iState = {
+export const INIT_STATE: iState = {
   userData: null,
   isSignIn: false,
 };

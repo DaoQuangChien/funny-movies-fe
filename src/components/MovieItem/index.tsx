@@ -23,7 +23,7 @@ const MovieItem: FC<Props> = ({
   onDownVoteMovie,
 }) => {
   return (
-    <Card className="movie-item" hoverable>
+    <Card className="movie-item" hoverable data-testid="movie-item">
       <Row gutter={[24, 24]}>
         <Col
           sm={{ span: 24 }}
@@ -36,12 +36,14 @@ const MovieItem: FC<Props> = ({
             width="100%"
             height="315"
             src={`https://www.youtube.com/embed/${movieUrlId}?controls=1`}
-          ></iframe>
+          />
         </Col>
         <Col sm={{ span: 24 }} md={{ span: 12 }}>
           <div className="flex-layout info">
-            <p className="title bold">{title}</p>
-            <p className="text">
+            <p className="title bold" data-testid="movie-title">
+              {title}
+            </p>
+            <p className="text" data-testid="movie-shared-by">
               <span className="bold">Shared by: </span>
               {email}
             </p>
@@ -56,6 +58,7 @@ const MovieItem: FC<Props> = ({
                     upVoted ? "action-button up-voted" : "action-button"
                   }
                   onClick={onUpVoteMovie(_id)}
+                  data-testid="upvote-btn"
                 />
                 {upVoteAmount}
               </div>
@@ -69,6 +72,7 @@ const MovieItem: FC<Props> = ({
                     downVoted ? "action-button down-voted" : "action-button"
                   }
                   onClick={onDownVoteMovie(_id)}
+                  data-testid="downvote-btn"
                 />
                 {downVoteAmount}
               </div>
@@ -77,6 +81,7 @@ const MovieItem: FC<Props> = ({
             <p
               className="data"
               dangerouslySetInnerHTML={{ __html: description }}
+              data-testid="movie-description"
             />
           </div>
         </Col>

@@ -47,9 +47,9 @@ const Home = () => {
       .then(getMoviesList)
       .catch((e) => console.error(e));
   const onUpVoteMovie = (movieId: string) => () =>
-    onMovieActions("movie/upvote", movieId);
+    onMovieActions("/movie/upvote", movieId);
   const onDownVoteMovie = (movieId: string) => () =>
-    onMovieActions("movie/downvote", movieId);
+    onMovieActions("/movie/downvote", movieId);
 
   useEffect(() => {
     getMoviesList();

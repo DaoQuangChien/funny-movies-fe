@@ -70,10 +70,16 @@ const PostMovie = () => {
             placeholder="Youtube Url"
             value={youtubeUrl}
             onChange={onUrlChange}
+            data-testid="url-input"
           />
         </Col>
         <Col xs={{ offset: 0 }} md={{ offset: 4 }}>
-          <Button type="primary" loading={loading} onClick={onPostMovie}>
+          <Button
+            type="primary"
+            loading={loading}
+            onClick={onPostMovie}
+            data-testid="share-btn"
+          >
             Share
           </Button>
         </Col>

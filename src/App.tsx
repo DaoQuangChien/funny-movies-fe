@@ -1,11 +1,5 @@
 import { useContext, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Navigate,
-  Routes,
-  Outlet,
-} from "react-router-dom";
+import { Route, Navigate, Routes, Outlet } from "react-router-dom";
 import "./App.scss";
 import { HeaderBar } from "./components";
 import { Home, PostMovie } from "./containers";
@@ -35,17 +29,15 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Router>
-      <div className="app-container">
-        <HeaderBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/post-movie" element={<PrivateRoute />}>
-            <Route path="" element={<PostMovie />} />
-          </Route>
-        </Routes>
-      </div>
-    </Router>
+    <div className="app-container">
+      <HeaderBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/post-movie" element={<PrivateRoute />}>
+          <Route path="" element={<PostMovie />} />
+        </Route>
+      </Routes>
+    </div>
   );
 };
 
