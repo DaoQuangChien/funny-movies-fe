@@ -24,17 +24,21 @@ const MovieItem: FC<Props> = ({
 }) => {
   return (
     <Card className="movie-item" hoverable>
-      <Row gutter={24}>
-        <Col span={12} className="flex-layout video-container">
+      <Row gutter={[24, 24]}>
+        <Col
+          sm={{ span: 24 }}
+          md={{ span: 12 }}
+          className="flex-layout video-container"
+        >
           <iframe
             title={title}
             className="movie"
-            width="500"
+            width="100%"
             height="315"
             src={`https://www.youtube.com/embed/${movieUrlId}?controls=1`}
           ></iframe>
         </Col>
-        <Col span={12}>
+        <Col sm={{ span: 24 }} md={{ span: 12 }}>
           <div className="flex-layout info">
             <p className="title bold">{title}</p>
             <p className="text">
@@ -45,6 +49,7 @@ const MovieItem: FC<Props> = ({
               <div className="up-vote action">
                 <Button
                   ghost
+                  type="primary"
                   icon={<LikeOutlined />}
                   disabled={isVoted}
                   className={

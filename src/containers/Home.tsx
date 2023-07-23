@@ -10,7 +10,6 @@ const Home = () => {
   const { isSignIn, userData } = useAuthenActions();
   const [moviesList, setMoviesList] = useState<iMovieItem[]>([]);
   const [loading, setLoading] = useState(false);
-  const [fetchDataTurn, setFetchDataTurn] = useState(0);
   const getMoviesList = useCallback(() => {
     setLoading(true);
     request
@@ -39,12 +38,14 @@ const Home = () => {
           })
         );
       })
+      .catch((e) => console.error(e))
       .finally(() => setLoading(false));
   }, [userData]);
   const onMovieActions = (url: string, movieId: string) =>
     request
       .post(url, { movieId })
-      .then(() => setFetchDataTurn((val) => val + 1));
+      .then(getMoviesList)
+      .catch((e) => console.error(e));
   const onUpVoteMovie = (movieId: string) => () =>
     onMovieActions("movie/upvote", movieId);
   const onDownVoteMovie = (movieId: string) => () =>
@@ -52,7 +53,8 @@ const Home = () => {
 
   useEffect(() => {
     getMoviesList();
-  }, [getMoviesList, isSignIn, fetchDataTurn]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSignIn]);
   return (
     <div className="home-container">
       <List

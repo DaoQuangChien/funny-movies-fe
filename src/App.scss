@@ -1,0 +1,33 @@
+.app-container {
+  padding: 24px 42px;
+}
+
+.flex-layout {
+  display: flex;
+
+  &.align-center {
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.flex-wrap {
+    flex-wrap: wrap;
+  }
+}
+
+.margin-left-auto {
+  margin-left: auto;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.data {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.general-notification .ant-notification-notice-description {
+  white-space: pre-wrap;
+}

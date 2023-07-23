@@ -44,7 +44,8 @@ const PostMovie = () => {
             description,
             movieUrlId: videoId,
           })
-          .then(() => navigate("/"));
+          .then(() => navigate("/"))
+          .catch((e) => console.error(e));
       })
       .catch(() => {
         notification.error({
@@ -56,17 +57,22 @@ const PostMovie = () => {
   };
 
   return (
-    <Card title="Share a Youtube Movie" style={{ width: 600, margin: "auto" }}>
-      <Row gutter={[8, 8]}>
-        <Col span={4}>Youtube Url:</Col>
-        <Col span={20}>
+    <Card
+      title="Share a Youtube Movie"
+      style={{ width: 600, margin: "auto", maxWidth: 600 }}
+    >
+      <Row gutter={[8, 8]} align="middle">
+        <Col xs={{ span: 24 }} md={{ span: 4 }}>
+          Youtube Url:
+        </Col>
+        <Col xs={{ span: 24 }} md={{ span: 20 }}>
           <Input
             placeholder="Youtube Url"
             value={youtubeUrl}
             onChange={onUrlChange}
           />
         </Col>
-        <Col offset={4}>
+        <Col xs={{ offset: 0 }} md={{ offset: 4 }}>
           <Button type="primary" loading={loading} onClick={onPostMovie}>
             Share
           </Button>

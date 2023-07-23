@@ -16,7 +16,10 @@ import {
   iUser,
 } from "../types";
 
-export const getUserData = () => JSON.parse(localStorage.getItem("user") || "");
+export const getUserData = () =>
+  localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")!)
+    : null;
 
 const INIT_STATE: iState = {
   userData: null,

@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useContext, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Navigate,
+  Routes,
+  Outlet,
+} from "react-router-dom";
+import "./App.scss";
+import { HeaderBar } from "./components";
+import { Home, PostMovie } from "./containers";
+import { AuthContext, getUserData, useAuthenActions } from "./store";
+import { eAction } from "./types";
 
-function App() {
+const PrivateRoute = () => {
+  const { isSignIn } = useAuthenActions();
+
+  return isSignIn ? <Outlet /> : <Navigate to="/" replace />;
+};
+
+const App = () => {
+  const [, dispatch] = useContext(AuthContext)!;
+
+  useEffect(() => {
+    const userData = getUserData();
+
+    if (userData) {
+      dispatch({
+        type: eAction.SIGN_IN,
+        payload: {
+          userData,
+        },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="app-container">
+        <HeaderBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/post-movie" element={<PrivateRoute />}>
+            <Route path="" element={<PostMovie />} />
+          </Route>
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;

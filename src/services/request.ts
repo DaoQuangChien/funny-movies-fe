@@ -11,7 +11,7 @@ request.interceptors.request.use((config) => {
   const userData = getUserData();
 
   if (userData) {
-    config.headers.common["access-token"] = userData.accessToken;
+    config.headers["access-token"] = userData.accessToken;
   }
   return config;
 });
