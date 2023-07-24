@@ -5,12 +5,14 @@ import { MemoryRouter } from "react-router-dom";
 import App from "../App";
 import { eAction, iMovie, iState } from "../types";
 import request from "../services/request";
+import axios from "axios";
 
 jest.mock("axios");
 jest.mock("../services/request", () => ({
   __esModule: true,
   default: {
     get: jest.fn(),
+    post: jest.fn(),
   },
   interceptors: {
     request: { use: jest.fn(), eject: jest.fn() },
@@ -72,6 +74,23 @@ describe("Test Home page", () => {
     await waitFor(() => {
       const movieItems = screen.queryAllByTestId("movie-item");
       expect(movieItems.length).toBe(0);
+    });
+  });
+
+  test("Redirect to Home page when accessing Share a movie page without logged in", async () => {
+    mockData();
+    await waitFor(() => {
+      render(
+        <AuthContext.Provider value={[INIT_STATE, jest.fn()]}>
+          <MemoryRouter initialEntries={["/post-movie"]}>
+            <App />
+          </MemoryRouter>
+        </AuthContext.Provider>
+      );
+    });
+    await waitFor(() => {
+      const urlInput = screen.queryByTestId("url-input");
+      expect(urlInput).not.toBeInTheDocument();
     });
   });
 
@@ -146,6 +165,53 @@ describe("Test Home page", () => {
     expect(welcomeElement?.textContent).toBe("Welcome test@test.com");
     expect(shareMovieBtn).toBeInTheDocument();
     expect(logoutBtn).toBeInTheDocument();
+  });
+
+  test("Share a movie action", async () => {
+    const getRequestListener = jest.spyOn(axios, "get");
+    getRequestListener.mockResolvedValue({
+      data: {
+        items: [
+          {
+            snippet: {
+              title: "Test",
+              description: "Test",
+            },
+          },
+        ],
+      },
+    });
+    const state: iState = {
+      userData: {
+        email: "test@test.com",
+        accessToken: "abc",
+        id: "1",
+      },
+      isSignIn: true,
+    };
+    await waitFor(() => {
+      render(
+        <AuthContext.Provider value={[state, jest.fn()]}>
+          <MemoryRouter initialEntries={["/post-movie"]}>
+            <App />
+          </MemoryRouter>
+        </AuthContext.Provider>
+      );
+    });
+    const urlInput = screen.getByTestId("url-input");
+    const shareBtn = screen.getByTestId("share-btn");
+
+    fireEvent.change(urlInput, {
+      target: { value: "https://youtu.be/12_noMnNky8" },
+    });
+    fireEvent.click(shareBtn);
+    await waitFor(() => {
+      expect(request.post).toBeCalledWith("/movie", {
+        description: "Test",
+        movieUrlId: "12_noMnNky8",
+        title: "Test",
+      });
+    });
   });
 
   test("Logout action", async () => {

@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# Funny movies frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and a few more utility libraries, latest version, to develop the frontend side for the **Funny movies** webapp
+
+## Setting up
+
+- Make sure you have [NodeJS](https://nodejs.org/en/download) installed on your machine.
+
+- You can use `npm` or `yarn` to run the installation command: `npm i` or `yarn`. Since `npm` comes with the `NodeJS`, let's use it to run the scripts available within the source.
 
 ## Available Scripts
 
@@ -38,6 +46,15 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Available features
+
+- View the movies list uploaded by the users
+- View the upvoted / downvoted amount
+- Sign in / Sign up
+- Once logged in, you can:
+  - Share a movie by clicking the Share a movie button to go to that page, input a valid youtube url and click Share
+  - Upvote / Downvote a movie by clicking on the respective buttons on each movie item
 
 ## Learn More
 
